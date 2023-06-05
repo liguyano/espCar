@@ -13,6 +13,8 @@ private:
 public:
 
     Air724();
+    void init();
+    int connectTOServe(String ip, int port);
     String send(String data);
     String recv();
     String sendToTcp(String messa);

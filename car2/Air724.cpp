@@ -6,7 +6,6 @@
 
 Air724::Air724() {
 
-
 }
 
 String Air724::recv() {
@@ -54,4 +53,25 @@ String Air724::sendToTcp(String messa) {
 
 String Air724::recv_tcp() {
     return send("AT+CIPRECVMODE=1,1024");
+}
+
+void Air724::init() {
+    resend:
+    a=send("AT\r");
+    if (a=="ATOK")
+    {
+        return;
+    } else
+    {
+        goto resend;
+    }
+}
+
+int Air724::connectTOServe(String ip, int port) {
+    a=send("AT+CIPSTART=TCP,"+ip+","+String(port)+"\r");
+    if (a.endsWith("CONNECTOK"))
+    {
+        return 1;
+    } else
+        return 0;
 }
